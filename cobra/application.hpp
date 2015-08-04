@@ -4,16 +4,17 @@
 #include <memory>
 #include <string>
 
-#include "gmx/application.hpp"
+#include "gmx/game.hpp"
 #include "gmx/graphics.hpp"
 
 #include "cobra/sdl.hpp"
 
 namespace cobra {
 
-class Cobra : public gmx::Application {
+class Cobra : public gmx::Game {
     public:
-        Cobra(); virtual ~Cobra();
+        Cobra();
+        virtual ~Cobra();
 
         std::string getWindowTitle();
         void setWindowTitle(const std::string& title);

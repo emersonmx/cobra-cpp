@@ -127,7 +127,6 @@ void Cobra::draw() {
     renderer->present();
 }
 
-
 } /* namespace cobra */
 
 int main() {
