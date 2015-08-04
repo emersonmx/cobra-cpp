@@ -29,6 +29,7 @@ set(EXTRA_LIBS ${EXTRA_LIBS} ${SDL2_IMAGE_LIBRARY})
 
 add_executable(${PROJECT_NAME}
     cobra/application.cpp
+    cobra/sdl.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}

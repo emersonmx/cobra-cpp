@@ -1,6 +1,7 @@
 #ifndef COBRA_APPLICATION_HPP
 #define COBRA_APPLICATION_HPP
 
+#include <memory>
 #include <string>
 
 #include "gmx/application.hpp"
@@ -12,15 +13,14 @@ namespace cobra {
 
 class Cobra : public gmx::Application {
     public:
-        Cobra();
-        virtual ~Cobra();
+        Cobra(); virtual ~Cobra();
 
-        inline std::string getWindowTitle() { return windowTitle; }
-        inline void setWindowTitle(const std::string& title) { windowTitle = title; }
-        inline unsigned int getWindowWidth() { return windowWidth; }
-        inline void setWindowWidth(unsigned int width) { windowWidth = width; }
-        inline unsigned int getWindowHeight() { return windowHeight; }
-        inline void setWindowHeight(unsigned int height) { windowHeight = height; }
+        std::string getWindowTitle();
+        void setWindowTitle(const std::string& title);
+        unsigned int getWindowWidth();
+        void setWindowWidth(unsigned int width);
+        unsigned int getWindowHeight();
+        void setWindowHeight(unsigned int height);
 
     protected:
         virtual void create();
@@ -45,7 +45,7 @@ class Cobra : public gmx::Application {
         unsigned int windowWidth;
         unsigned int windowHeight;
 
-        SDL_Window* window;
+        sdl::Window* window;
         sdl::Renderer* renderer;
         SDL_Event event;
 

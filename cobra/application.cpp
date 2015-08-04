@@ -7,10 +7,33 @@ using namespace std;
 
 namespace cobra {
 
-Cobra::Cobra() : window(NULL), renderer(NULL) {
-}
+Cobra::Cobra() : window(NULL) {}
 
 Cobra::~Cobra() {
+}
+
+string Cobra::getWindowTitle() {
+    return windowTitle;
+}
+
+void Cobra::setWindowTitle(const string& title) {
+    windowTitle = title;
+}
+
+unsigned int Cobra::getWindowWidth() {
+    return windowWidth;
+}
+
+void Cobra::setWindowWidth(unsigned int width) {
+    windowWidth = width;
+}
+
+unsigned int Cobra::getWindowHeight() {
+    return windowHeight;
+}
+
+void Cobra::setWindowHeight(unsigned int height) {
+    windowHeight = height;
 }
 
 void Cobra::create() {
@@ -38,13 +61,8 @@ void Cobra::initSDL() {
 }
 
 void Cobra::createWindow() {
-    Uint32 flags = SDL_WINDOW_SHOWN;
-    int x=SDL_WINDOWPOS_CENTERED, y=SDL_WINDOWPOS_CENTERED;
-
-    window = SDL_CreateWindow(windowTitle.c_str(), x, y, windowWidth, windowHeight, flags);
-    if (window == NULL) {
-        throw logic_error("Não foi possível criar a janela.");
-    }
+    window = new sdl::Window(windowTitle, windowWidth, windowHeight);
+    window->show();
 }
 
 void Cobra::createRenderer() {
@@ -60,7 +78,7 @@ void Cobra::initSDLImage() {
 }
 
 void Cobra::loadAssets() {
-    game = renderer->loadTexture("assets/game.png");
+    game = sdl::loadTexture(renderer->getSDLRenderer(), "assets/game.png");
     region = new sdl::TextureRegion(game);
     region->setRegion(0, 0, 8, 8);
 }
@@ -75,8 +93,8 @@ void Cobra::dispose() {
     IMG_Quit();
 
     delete renderer;
+    delete window;
 
-    SDL_DestroyWindow(window);
     SDL_Quit();
 }
 
