@@ -15,6 +15,7 @@ class Error : public std::logic_error {
     public:
         Error();
         Error(const std::string message);
+        virtual ~Error();
 };
 
 class Texture : public gmx::Texture<SDL_Texture*> {
@@ -34,6 +35,7 @@ class TextureRegion : public gmx::TextureRegion<SDL_Texture*> {
 class Timer {
     public:
         Timer();
+        virtual ~Timer();
 
         float getDelta();
 

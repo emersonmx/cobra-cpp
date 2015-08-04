@@ -11,6 +11,8 @@ Error::Error()
 
 Error::Error(const string message) : logic_error(message) {}
 
+Error::~Error() {}
+
 Texture::Texture(SDL_Texture* texture, int width, int height)
     : gmx::Texture<SDL_Texture*>(texture, width, height) {}
 
@@ -29,6 +31,8 @@ SDL_Texture* TextureRegion::getSDLTexture() {
 
 Timer::Timer()
     : delta(0.f), lastTicks(0) {}
+
+Timer::~Timer() {}
 
 float Timer::getDelta() {
     return delta;
@@ -126,7 +130,7 @@ void Renderer::create(Window* window, Uint32 flags) {
 void Renderer::create(SDL_Window* window, Uint32 flags) {
     renderer = SDL_CreateRenderer(window, -1, flags);
     if (renderer == NULL) {
-        throw logic_error("Não foi possível criar o renderer.");
+        throw Error();
     }
     setDrawColor(0, 0, 0, 0);
 }

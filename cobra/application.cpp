@@ -45,10 +45,10 @@ void Cobra::create() {
         loadAssets();
         setup();
     } catch (exception& e) {
-        cout << e.what() << "\n\tSDL_Error: " << SDL_GetError() << endl;
+        cout << e.what() << endl;
         exit(-1);
     } catch (...) {
-        cout << "Ocorreu um erro desconhecido." << "\n\tSDL_Error: " << SDL_GetError() << endl;
+        cout << "Ocorreu um erro desconhecido." << endl;
         exit(-1);
     }
 }
@@ -56,7 +56,7 @@ void Cobra::create() {
 void Cobra::initSDL() {
     Uint32 flags = SDL_INIT_VIDEO;
     if (SDL_Init(flags) != 0) {
-        throw logic_error("A SDL não foi incializada.");
+        throw sdl::Error();
     }
 }
 
@@ -73,7 +73,7 @@ void Cobra::createRenderer() {
 void Cobra::initSDLImage() {
     Uint32 flags = IMG_INIT_PNG;
     if (!(IMG_Init(flags) & flags)) {
-        throw logic_error("Não foi possível iniciar a SDL_Image.");
+        throw sdl::Error();
     }
 }
 
@@ -90,11 +90,10 @@ void Cobra::setup() {
 void Cobra::dispose() {
     unloadAssets();
 
-    IMG_Quit();
-
     delete renderer;
     delete window;
 
+    IMG_Quit();
     SDL_Quit();
 }
 
