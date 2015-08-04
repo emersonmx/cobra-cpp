@@ -53,7 +53,7 @@ class Window {
                Uint32 flags=SDL_WINDOW_HIDDEN);
         virtual ~Window();
 
-        SDL_Window* getWindow();
+        SDL_Window* getSDLWindow();
 
         std::string getTitle();
         void setTitle(const std::string& title);

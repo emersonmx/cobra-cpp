@@ -60,7 +60,7 @@ Window::~Window() {
     SDL_DestroyWindow(window);
 }
 
-SDL_Window* Window::getWindow() {
+SDL_Window* Window::getSDLWindow() {
     return window;
 }
 
@@ -120,7 +120,7 @@ SDL_Renderer* Renderer::getSDLRenderer() {
 }
 
 void Renderer::create(Window* window, Uint32 flags) {
-    create(window->getWindow(), flags);
+    create(window->getSDLWindow(), flags);
 }
 
 void Renderer::create(SDL_Window* window, Uint32 flags) {
