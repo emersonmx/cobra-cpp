@@ -28,8 +28,6 @@ class TextureRegion : public gmx::TextureRegion<SDL_Texture*> {
     public:
         TextureRegion(Texture* texture);
         virtual ~TextureRegion();
-
-        SDL_Texture* getSDLTexture();
 };
 
 class Timer {
@@ -70,6 +68,8 @@ class Window {
         void minimize();
         int refresh();
 
+        operator SDL_Window*() { return window; }
+
     protected:
         SDL_Window* window;
 };
@@ -90,6 +90,8 @@ class Renderer {
         void draw(SDL_Texture* texture, SDL_Rect* source, SDL_Rect* offset);
         void clear();
         void present();
+
+        operator SDL_Renderer*() { return renderer; }
 
     private:
         SDL_Renderer* renderer;
