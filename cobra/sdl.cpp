@@ -26,7 +26,7 @@ TextureRegion::TextureRegion(Texture* texture)
 TextureRegion::~TextureRegion() {}
 
 SDL_Texture* TextureRegion::getSDLTexture() {
-    return texture->getTexture();
+    return texture->getData();
 }
 
 Timer::Timer()
@@ -141,7 +141,7 @@ void Renderer::setDrawColor(Uint8 red, Uint8 green, Uint8 blue, Uint8 alpha) {
 
 void Renderer::draw(Texture* texture, int x, int y) {
     SDL_Rect offset = { x, y, texture->getWidth(), texture->getHeight() };
-    draw(texture->getTexture(), NULL, &offset);
+    draw(texture->getData(), NULL, &offset);
 }
 
 void Renderer::draw(TextureRegion* region, int x, int y) {
