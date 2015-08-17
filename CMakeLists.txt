@@ -13,10 +13,9 @@ if (CMAKE_COMPILER_IS_GNUCXX)
     set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -fmessage-length=0")
 endif (CMAKE_COMPILER_IS_GNUCXX)
 
-add_subdirectory(gmx/)
-
 include_directories(${PROJECT_SOURCE_DIR}
     ${PROJECT_SOURCE_DIR}/gmx/
+    ${PROJECT_SOURCE_DIR}/gmx/examples/
 )
 
 find_package(SDL2 REQUIRED)
@@ -29,10 +28,11 @@ set(EXTRA_LIBS ${EXTRA_LIBS} ${SDL2_IMAGE_LIBRARY})
 
 add_executable(${PROJECT_NAME}
     cobra/application.cpp
-    cobra/sdl.cpp
+    gmx/gmx/application.cpp
+    gmx/gmx/game.cpp
+    gmx/examples/sdlutils/sdl.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}
-    gmx
     ${EXTRA_LIBS}
 )

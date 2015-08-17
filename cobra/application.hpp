@@ -4,10 +4,10 @@
 #include <memory>
 #include <string>
 
-#include "gmx/game.hpp"
+#include "gmx/application.hpp"
 #include "gmx/graphics.hpp"
 
-#include "cobra/sdl.hpp"
+#include "sdlutils/sdl.hpp"
 
 namespace cobra {
 
