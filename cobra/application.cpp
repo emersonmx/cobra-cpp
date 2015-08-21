@@ -45,8 +45,7 @@ void Application::create() {
         loadAssets();
         setup();
     } catch (exception& e) {
-        cout << e.what() << endl;
-        exit(-1);
+        cout << e.what() << endl; exit(-1);
     } catch (...) {
         cout << "Ocorreu um erro desconhecido." << endl;
         exit(-1);
@@ -61,13 +60,13 @@ void Application::initSDL() {
 }
 
 void Application::createWindow() {
-    window = new sdl::Window(windowTitle, windowWidth, windowHeight);
+    window.reset(new sdl::Window(windowTitle, windowWidth, windowHeight));
     window->show();
 }
 
 void Application::createRenderer() {
-    renderer = new sdl::Renderer();
-    renderer->create(window);
+    renderer.reset(new sdl::Renderer());
+    renderer->create(window.get());
 }
 
 void Application::initSDLImage() {
@@ -78,8 +77,8 @@ void Application::initSDLImage() {
 }
 
 void Application::loadAssets() {
-    game = sdl::loadTexture(renderer->getSDLRenderer(), "assets/game.png");
-    region = new sdl::TextureRegion(game);
+    game.reset(sdl::loadTexture(renderer->getSDLRenderer(), "assets/game.png"));
+    region.reset(new sdl::TextureRegion(game.get()));
     region->setRegion(0, 0, 8, 8);
 }
 
@@ -90,16 +89,16 @@ void Application::setup() {
 void Application::dispose() {
     unloadAssets();
 
-    delete renderer;
-    delete window;
+    renderer.reset();
+    window.reset();
 
     IMG_Quit();
     SDL_Quit();
 }
 
 void Application::unloadAssets() {
-    delete region;
-    delete game;
+    region.reset();
+    game.reset();
 }
 
 void Application::update() {
@@ -122,8 +121,8 @@ void Application::processLogic() {
 
 void Application::draw() {
     renderer->clear();
-    renderer->draw(region, 0, 0);
-    renderer->draw(game, 100, 100);
+    renderer->draw(region.get(), 0, 0);
+    renderer->draw(game.get(), 100, 100);
     renderer->present();
 }
 

@@ -11,6 +11,11 @@
 
 namespace cobra {
 
+typedef std::shared_ptr<sdl::Window> WindowPtr;
+typedef std::shared_ptr<sdl::Renderer> RendererPtr;
+typedef std::shared_ptr<sdl::Texture> TexturePtr;
+typedef std::shared_ptr<sdl::TextureRegion> TextureRegionPtr;
+
 class Application : public gmx::StateApplication {
     public:
         Application();
@@ -46,14 +51,14 @@ class Application : public gmx::StateApplication {
         unsigned int windowWidth;
         unsigned int windowHeight;
 
-        sdl::Window* window;
-        sdl::Renderer* renderer;
+        WindowPtr window;
+        RendererPtr renderer;
         SDL_Event event;
 
         sdl::Timer timer;
 
-        sdl::Texture* game;
-        sdl::TextureRegion* region;
+        TexturePtr game;
+        TextureRegionPtr region;
 };
 
 } /* namespace cobra */
