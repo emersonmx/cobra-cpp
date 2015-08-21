@@ -11,10 +11,10 @@
 
 namespace cobra {
 
-class Cobra : public gmx::StateApplication {
+class Application : public gmx::StateApplication {
     public:
-        Cobra();
-        virtual ~Cobra();
+        Application();
+        virtual ~Application();
 
         std::string getWindowTitle();
         void setWindowTitle(const std::string& title);

@@ -7,36 +7,36 @@ using namespace std;
 
 namespace cobra {
 
-Cobra::Cobra() : window(NULL) {}
+Application::Application() : window(NULL) {}
 
-Cobra::~Cobra() {
+Application::~Application() {
 }
 
-string Cobra::getWindowTitle() {
+string Application::getWindowTitle() {
     return windowTitle;
 }
 
-void Cobra::setWindowTitle(const string& title) {
+void Application::setWindowTitle(const string& title) {
     windowTitle = title;
 }
 
-unsigned int Cobra::getWindowWidth() {
+unsigned int Application::getWindowWidth() {
     return windowWidth;
 }
 
-void Cobra::setWindowWidth(unsigned int width) {
+void Application::setWindowWidth(unsigned int width) {
     windowWidth = width;
 }
 
-unsigned int Cobra::getWindowHeight() {
+unsigned int Application::getWindowHeight() {
     return windowHeight;
 }
 
-void Cobra::setWindowHeight(unsigned int height) {
+void Application::setWindowHeight(unsigned int height) {
     windowHeight = height;
 }
 
-void Cobra::create() {
+void Application::create() {
     try {
         initSDL();
         createWindow();
@@ -53,41 +53,41 @@ void Cobra::create() {
     }
 }
 
-void Cobra::initSDL() {
+void Application::initSDL() {
     Uint32 flags = SDL_INIT_VIDEO;
     if (SDL_Init(flags) != 0) {
         throw sdl::Error();
     }
 }
 
-void Cobra::createWindow() {
+void Application::createWindow() {
     window = new sdl::Window(windowTitle, windowWidth, windowHeight);
     window->show();
 }
 
-void Cobra::createRenderer() {
+void Application::createRenderer() {
     renderer = new sdl::Renderer();
     renderer->create(window);
 }
 
-void Cobra::initSDLImage() {
+void Application::initSDLImage() {
     Uint32 flags = IMG_INIT_PNG;
     if (!(IMG_Init(flags) & flags)) {
         throw sdl::Error();
     }
 }
 
-void Cobra::loadAssets() {
+void Application::loadAssets() {
     game = sdl::loadTexture(renderer->getSDLRenderer(), "assets/game.png");
     region = new sdl::TextureRegion(game);
     region->setRegion(0, 0, 8, 8);
 }
 
-void Cobra::setup() {
+void Application::setup() {
     timer.setup();
 }
 
-void Cobra::dispose() {
+void Application::dispose() {
     unloadAssets();
 
     delete renderer;
@@ -97,18 +97,18 @@ void Cobra::dispose() {
     SDL_Quit();
 }
 
-void Cobra::unloadAssets() {
+void Application::unloadAssets() {
     delete region;
     delete game;
 }
 
-void Cobra::update() {
+void Application::update() {
     handleInput();
     processLogic();
     draw();
 }
 
-void Cobra::handleInput() {
+void Application::handleInput() {
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT) {
             exit(0);
@@ -116,11 +116,11 @@ void Cobra::handleInput() {
     }
 }
 
-void Cobra::processLogic() {
+void Application::processLogic() {
     timer.update();
 }
 
-void Cobra::draw() {
+void Application::draw() {
     renderer->clear();
     renderer->draw(region, 0, 0);
     renderer->draw(game, 100, 100);
@@ -130,10 +130,10 @@ void Cobra::draw() {
 } /* namespace cobra */
 
 int main() {
-    cobra::Cobra cobra;
-    cobra.setWindowTitle("Cobra");
-    cobra.setWindowWidth(500);
-    cobra.setWindowHeight(500);
+    cobra::Application app;
+    app.setWindowTitle("Cobra");
+    app.setWindowWidth(500);
+    app.setWindowHeight(500);
 
-    return cobra.run();
+    return app.run();
 }
