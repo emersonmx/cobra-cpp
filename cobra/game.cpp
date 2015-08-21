@@ -25,10 +25,10 @@ void GameState::processLogic() {
 void GameState::draw() {
     RendererPtr& renderer = getRenderer();
     TexturePtr& game = getGame();
-    TextureRegionPtr& region = getRegion();
+    sdl::TextureRegion& region = getRegion();
 
     renderer->clear();
-    renderer->draw(region.get(), 0, 0);
+    renderer->draw(&region, 0, 0);
     renderer->draw(game.get(), 100, 100);
     renderer->present();
 }

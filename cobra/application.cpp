@@ -57,7 +57,7 @@ TexturePtr& Application::getGame() {
     return game;
 }
 
-TextureRegionPtr& Application::getRegion() {
+sdl::TextureRegion& Application::getRegion() {
     return region;
 }
 
@@ -103,8 +103,8 @@ void Application::initSDLImage() {
 
 void Application::loadAssets() {
     game.reset(sdl::loadTexture(renderer->getSDLRenderer(), "assets/game.png"));
-    region.reset(new sdl::TextureRegion(game.get()));
-    region->setRegion(0, 0, 8, 8);
+    region.setTexture(game.get());
+    region.setRegion(0, 0, 8, 8);
 }
 
 void Application::setup() {
@@ -127,7 +127,6 @@ void Application::dispose() {
 }
 
 void Application::unloadAssets() {
-    region.reset();
     game.reset();
 }
 
@@ -155,7 +154,7 @@ TexturePtr& BaseState::getGame() {
     return app.getGame();
 }
 
-TextureRegionPtr& BaseState::getRegion() {
+sdl::TextureRegion& BaseState::getRegion() {
     return app.getRegion();
 }
 

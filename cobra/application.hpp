@@ -34,7 +34,7 @@ class Application : public gmx::StateApplication {
         sdl::Timer& getTimer();
 
         TexturePtr& getGame();
-        TextureRegionPtr& getRegion();
+        sdl::TextureRegion& getRegion();
 
     protected:
         virtual void create();
@@ -62,7 +62,7 @@ class Application : public gmx::StateApplication {
         sdl::Timer timer;
 
         TexturePtr game;
-        TextureRegionPtr region;
+        sdl::TextureRegion region;
 };
 
 class BaseState : public gmx::DefaultState {
@@ -76,7 +76,7 @@ class BaseState : public gmx::DefaultState {
         sdl::Timer& getTimer();
 
         TexturePtr& getGame();
-        TextureRegionPtr& getRegion();
+        sdl::TextureRegion& getRegion();
 
         virtual void update();
 
