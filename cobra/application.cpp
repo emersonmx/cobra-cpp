@@ -1,4 +1,5 @@
 #include "cobra/application.hpp"
+#include "cobra/game.hpp"
 
 #include <iostream>
 #include <memory>
@@ -7,7 +8,7 @@ using namespace std;
 
 namespace cobra {
 
-Application::Application() : window(NULL) {}
+Application::Application() {}
 
 Application::~Application() {
 }
@@ -34,6 +35,30 @@ unsigned int Application::getWindowHeight() {
 
 void Application::setWindowHeight(unsigned int height) {
     windowHeight = height;
+}
+
+WindowPtr& Application::getWindow() {
+    return window;
+}
+
+RendererPtr& Application::getRenderer() {
+    return renderer;
+}
+
+SDL_Event& Application::getEvent() {
+    return event;
+}
+
+sdl::Timer& Application::getTimer() {
+    return timer;
+}
+
+TexturePtr& Application::getGame() {
+    return game;
+}
+
+TextureRegionPtr& Application::getRegion() {
+    return region;
 }
 
 void Application::create() {
@@ -86,6 +111,11 @@ void Application::setup() {
     timer.setup();
 }
 
+void Application::update() {
+    timer.update();
+    StateApplication::update();
+}
+
 void Application::dispose() {
     unloadAssets();
 
@@ -101,30 +131,45 @@ void Application::unloadAssets() {
     game.reset();
 }
 
-void Application::update() {
+BaseState::BaseState(Application& app) : app(app) {}
+
+BaseState::~BaseState() {}
+
+WindowPtr& BaseState::getWindow() {
+    return app.getWindow();
+}
+
+RendererPtr& BaseState::getRenderer() {
+    return app.getRenderer();
+}
+
+SDL_Event& BaseState::getEvent() {
+    return app.getEvent();
+}
+
+sdl::Timer& BaseState::getTimer() {
+    return app.getTimer();
+}
+
+TexturePtr& BaseState::getGame() {
+    return app.getGame();
+}
+
+TextureRegionPtr& BaseState::getRegion() {
+    return app.getRegion();
+}
+
+void BaseState::update() {
     handleInput();
     processLogic();
     draw();
 }
 
-void Application::handleInput() {
-    while (SDL_PollEvent(&event)) {
-        if (event.type == SDL_QUIT) {
-            exit(0);
-        }
-    }
-}
+void BaseState::handleInput() {}
 
-void Application::processLogic() {
-    timer.update();
-}
+void BaseState::processLogic() {}
 
-void Application::draw() {
-    renderer->clear();
-    renderer->draw(region.get(), 0, 0);
-    renderer->draw(game.get(), 100, 100);
-    renderer->present();
-}
+void BaseState::draw() {}
 
 } /* namespace cobra */
 
@@ -133,6 +178,9 @@ int main() {
     app.setWindowTitle("Cobra");
     app.setWindowWidth(500);
     app.setWindowHeight(500);
+
+    shared_ptr<cobra::GameState> gameState = make_shared<cobra::GameState>(app);
+    app.setState(gameState);
 
     return app.run();
 }

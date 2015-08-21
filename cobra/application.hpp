@@ -28,10 +28,18 @@ class Application : public gmx::StateApplication {
         unsigned int getWindowHeight();
         void setWindowHeight(unsigned int height);
 
+        WindowPtr& getWindow();
+        RendererPtr& getRenderer();
+        SDL_Event& getEvent();
+        sdl::Timer& getTimer();
+
+        TexturePtr& getGame();
+        TextureRegionPtr& getRegion();
+
     protected:
         virtual void create();
-        virtual void dispose();
         virtual void update();
+        virtual void dispose();
 
     private:
         void initSDL();
@@ -42,10 +50,6 @@ class Application : public gmx::StateApplication {
         void setup();
 
         void unloadAssets();
-
-        void handleInput();
-        void processLogic();
-        void draw();
 
         std::string windowTitle;
         unsigned int windowWidth;
@@ -59,6 +63,29 @@ class Application : public gmx::StateApplication {
 
         TexturePtr game;
         TextureRegionPtr region;
+};
+
+class BaseState : public gmx::DefaultState {
+    public:
+        BaseState(Application& app);
+        virtual ~BaseState();
+
+        WindowPtr& getWindow();
+        RendererPtr& getRenderer();
+        SDL_Event& getEvent();
+        sdl::Timer& getTimer();
+
+        TexturePtr& getGame();
+        TextureRegionPtr& getRegion();
+
+        virtual void update();
+
+    protected:
+        virtual void handleInput();
+        virtual void processLogic();
+        virtual void draw();
+
+        Application& app;
 };
 
 } /* namespace cobra */
