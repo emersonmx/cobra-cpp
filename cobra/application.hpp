@@ -11,7 +11,7 @@
 
 namespace cobra {
 
-class Cobra : public gmx::Game {
+class Cobra : public gmx::StateApplication {
     public:
         Cobra();
         virtual ~Cobra();

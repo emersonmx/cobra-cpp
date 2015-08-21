@@ -29,7 +29,7 @@ set(EXTRA_LIBS ${EXTRA_LIBS} ${SDL2_IMAGE_LIBRARY})
 add_executable(${PROJECT_NAME}
     cobra/application.cpp
     gmx/gmx/application.cpp
-    gmx/gmx/game.cpp
+    gmx/gmx/state_application.cpp
     gmx/examples/sdlutils/sdl.cpp
 )
 
