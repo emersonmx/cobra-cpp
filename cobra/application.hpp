@@ -11,30 +11,25 @@
 
 namespace cobra {
 
-typedef std::shared_ptr<sdl::Window> WindowPtr;
-typedef std::shared_ptr<sdl::Renderer> RendererPtr;
-typedef std::shared_ptr<sdl::Texture> TexturePtr;
-typedef std::shared_ptr<sdl::TextureRegion> TextureRegionPtr;
-
 class Application : public gmx::StateApplication {
     public:
-        Application();
-        virtual ~Application();
+        Application() {}
+        virtual ~Application() {}
 
-        std::string getWindowTitle();
-        void setWindowTitle(const std::string& title);
-        unsigned int getWindowWidth();
-        void setWindowWidth(unsigned int width);
-        unsigned int getWindowHeight();
-        void setWindowHeight(unsigned int height);
+        std::string getWindowTitle() { return windowTitle; }
+        void setWindowTitle(const std::string& title) { windowTitle = title; }
+        unsigned int getWindowWidth() { return windowWidth; }
+        void setWindowWidth(unsigned int width) {windowWidth = width; }
+        unsigned int getWindowHeight() { return windowHeight; }
+        void setWindowHeight(unsigned int height) { windowHeight = height; }
 
-        WindowPtr& getWindow();
-        RendererPtr& getRenderer();
-        SDL_Event& getEvent();
-        sdl::Timer& getTimer();
+        std::shared_ptr<sdl::Window>& getWindow() { return window; }
+        std::shared_ptr<sdl::Renderer>& getRenderer() { return renderer; }
+        SDL_Event& getEvent() { return event; }
+        sdl::Timer& getTimer() { return timer; }
 
-        TexturePtr& getGame();
-        sdl::TextureRegion& getRegion();
+        std::shared_ptr<sdl::Texture>& getGame() { return game; }
+        sdl::TextureRegion& getRegion() { return region; }
 
     protected:
         virtual void create();
@@ -55,35 +50,27 @@ class Application : public gmx::StateApplication {
         unsigned int windowWidth;
         unsigned int windowHeight;
 
-        WindowPtr window;
-        RendererPtr renderer;
+        std::shared_ptr<sdl::Window> window;
+        std::shared_ptr<sdl::Renderer> renderer;
         SDL_Event event;
 
         sdl::Timer timer;
 
-        TexturePtr game;
+        std::shared_ptr<sdl::Texture> game;
         sdl::TextureRegion region;
 };
 
 class BaseState : public gmx::DefaultState {
     public:
-        BaseState(Application& app);
-        virtual ~BaseState();
-
-        WindowPtr& getWindow();
-        RendererPtr& getRenderer();
-        SDL_Event& getEvent();
-        sdl::Timer& getTimer();
-
-        TexturePtr& getGame();
-        sdl::TextureRegion& getRegion();
+        BaseState(Application& app) : app(app) {}
+        virtual ~BaseState() {}
 
         virtual void update();
 
     protected:
-        virtual void handleInput();
-        virtual void processLogic();
-        virtual void draw();
+        virtual void handleInput() {}
+        virtual void processLogic() {}
+        virtual void draw() {}
 
         Application& app;
 };

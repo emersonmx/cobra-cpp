@@ -8,59 +8,6 @@ using namespace std;
 
 namespace cobra {
 
-Application::Application() {}
-
-Application::~Application() {
-}
-
-string Application::getWindowTitle() {
-    return windowTitle;
-}
-
-void Application::setWindowTitle(const string& title) {
-    windowTitle = title;
-}
-
-unsigned int Application::getWindowWidth() {
-    return windowWidth;
-}
-
-void Application::setWindowWidth(unsigned int width) {
-    windowWidth = width;
-}
-
-unsigned int Application::getWindowHeight() {
-    return windowHeight;
-}
-
-void Application::setWindowHeight(unsigned int height) {
-    windowHeight = height;
-}
-
-WindowPtr& Application::getWindow() {
-    return window;
-}
-
-RendererPtr& Application::getRenderer() {
-    return renderer;
-}
-
-SDL_Event& Application::getEvent() {
-    return event;
-}
-
-sdl::Timer& Application::getTimer() {
-    return timer;
-}
-
-TexturePtr& Application::getGame() {
-    return game;
-}
-
-sdl::TextureRegion& Application::getRegion() {
-    return region;
-}
-
 void Application::create() {
     try {
         initSDL();
@@ -85,13 +32,12 @@ void Application::initSDL() {
 }
 
 void Application::createWindow() {
-    window.reset(new sdl::Window(windowTitle, windowWidth, windowHeight));
+    window = make_shared<sdl::Window>(windowTitle, windowWidth, windowHeight);
     window->show();
 }
 
 void Application::createRenderer() {
-    renderer.reset(new sdl::Renderer());
-    renderer->create(window.get());
+    renderer = make_shared<sdl::Renderer>(window);
 }
 
 void Application::initSDLImage() {
@@ -102,7 +48,7 @@ void Application::initSDLImage() {
 }
 
 void Application::loadAssets() {
-    game.reset(sdl::loadTexture(renderer->getSDLRenderer(), "assets/game.png"));
+    game = sdl::loadTexture(*renderer, "assets/game.png");
     region.setTexture(game.get());
     region.setRegion(0, 0, 8, 8);
 }
@@ -130,45 +76,11 @@ void Application::unloadAssets() {
     game.reset();
 }
 
-BaseState::BaseState(Application& app) : app(app) {}
-
-BaseState::~BaseState() {}
-
-WindowPtr& BaseState::getWindow() {
-    return app.getWindow();
-}
-
-RendererPtr& BaseState::getRenderer() {
-    return app.getRenderer();
-}
-
-SDL_Event& BaseState::getEvent() {
-    return app.getEvent();
-}
-
-sdl::Timer& BaseState::getTimer() {
-    return app.getTimer();
-}
-
-TexturePtr& BaseState::getGame() {
-    return app.getGame();
-}
-
-sdl::TextureRegion& BaseState::getRegion() {
-    return app.getRegion();
-}
-
 void BaseState::update() {
     handleInput();
     processLogic();
     draw();
 }
-
-void BaseState::handleInput() {}
-
-void BaseState::processLogic() {}
-
-void BaseState::draw() {}
 
 } /* namespace cobra */
 

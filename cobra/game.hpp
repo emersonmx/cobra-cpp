@@ -7,8 +7,8 @@ namespace cobra {
 
 class GameState : public BaseState {
     public:
-        GameState(Application& app);
-        virtual ~GameState();
+        GameState(Application& app) : BaseState(app) {}
+        virtual ~GameState() {}
 
     protected:
         virtual void handleInput();

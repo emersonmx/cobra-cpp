@@ -6,12 +6,8 @@ using namespace std;
 
 namespace cobra {
 
-GameState::GameState(Application& app) : BaseState(app) {}
-
-GameState::~GameState() {}
-
 void GameState::handleInput() {
-    SDL_Event& event = getEvent();
+    auto& event = app.getEvent();
     while (SDL_PollEvent(&event)) {
         if (event.type == SDL_QUIT) {
             exit(0);
@@ -23,9 +19,9 @@ void GameState::processLogic() {
 }
 
 void GameState::draw() {
-    RendererPtr& renderer = getRenderer();
-    TexturePtr& game = getGame();
-    sdl::TextureRegion& region = getRegion();
+    auto& renderer = app.getRenderer();
+    auto& game = app.getGame();
+    auto& region = app.getRegion();
 
     renderer->clear();
     renderer->draw(&region, 0, 0);
