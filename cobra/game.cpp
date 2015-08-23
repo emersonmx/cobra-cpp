@@ -24,8 +24,8 @@ void GameState::draw() {
     auto& region = app.getRegion();
 
     renderer->clear();
-    renderer->draw(&region, 0, 0);
-    renderer->draw(game.get(), 100, 100);
+    renderer->draw(*region, 0, 0);
+    renderer->draw(*game, 100, 100);
     renderer->present();
 }
 

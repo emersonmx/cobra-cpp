@@ -29,7 +29,7 @@ class Application : public gmx::StateApplication {
         sdl::Timer& getTimer() { return timer; }
 
         std::shared_ptr<sdl::Texture>& getGame() { return game; }
-        sdl::TextureRegion& getRegion() { return region; }
+        std::shared_ptr<sdl::TextureRegion>& getRegion() { return region; }
 
     protected:
         virtual void create();
@@ -57,7 +57,7 @@ class Application : public gmx::StateApplication {
         sdl::Timer timer;
 
         std::shared_ptr<sdl::Texture> game;
-        sdl::TextureRegion region;
+        std::shared_ptr<sdl::TextureRegion> region;
 };
 
 class BaseState : public gmx::DefaultState {

@@ -49,8 +49,8 @@ void Application::initSDLImage() {
 
 void Application::loadAssets() {
     game = sdl::loadTexture(*renderer, "assets/game.png");
-    region.setTexture(game.get());
-    region.setRegion(0, 0, 8, 8);
+    region = make_shared<sdl::TextureRegion>(*game);
+    region->setRegion(0, 0, 8, 8);
 }
 
 void Application::setup() {
