@@ -37,7 +37,7 @@ void Application::createWindow() {
 }
 
 void Application::createRenderer() {
-    renderer = make_shared<sdl::Renderer>(window);
+    renderer = make_shared<sdl::Renderer>(*window);
 }
 
 void Application::initSDLImage() {
