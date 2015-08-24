@@ -16,6 +16,9 @@ enum {
     LEFT_PART, RIGHT_PART, TOP_PART, BOTTOM_PART,
     TOP_RIGHT_PART, TOP_LEFT_PART, BOTTOM_RIGHT_PART, BOTTOM_LEFT_PART,
     FOOD,
+
+
+    // Enum com tamanho dinâmico. Contanto que a linha abaixo seja a última.
     REGION_SIZE
 };
 
