@@ -11,6 +11,14 @@
 
 namespace cobra {
 
+enum {
+    VERTICAL_PART, HORIZONTAL_PART,
+    LEFT_PART, RIGHT_PART, TOP_PART, BOTTOM_PART,
+    TOP_RIGHT_PART, TOP_LEFT_PART, BOTTOM_RIGHT_PART, BOTTOM_LEFT_PART,
+    FOOD,
+    REGION_SIZE
+};
+
 class Application : public gmx::StateApplication {
     public:
         Application() {}
@@ -29,7 +37,9 @@ class Application : public gmx::StateApplication {
         sdl::Timer& getTimer() { return timer; }
 
         std::shared_ptr<sdl::Texture>& getGame() { return game; }
-        std::shared_ptr<sdl::TextureRegion>& getRegion() { return region; }
+        std::shared_ptr<sdl::TextureRegion>& getRegion(int index) {
+            return regions[index];
+        }
 
     protected:
         virtual void create();
@@ -57,7 +67,7 @@ class Application : public gmx::StateApplication {
         sdl::Timer timer;
 
         std::shared_ptr<sdl::Texture> game;
-        std::shared_ptr<sdl::TextureRegion> region;
+        std::array<std::shared_ptr<sdl::TextureRegion>, REGION_SIZE> regions;
 };
 
 class BaseState : public gmx::DefaultState {

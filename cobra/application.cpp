@@ -49,8 +49,20 @@ void Application::initSDLImage() {
 
 void Application::loadAssets() {
     game = sdl::loadTexture(*renderer, "assets/game.png");
-    region = make_shared<sdl::TextureRegion>(*game);
-    region->setRegion(0, 0, 8, 8);
+
+    regions[VERTICAL_PART] = make_shared<sdl::TextureRegion>(*game, 0, 0, 8, 8);
+    regions[TOP_RIGHT_PART] = make_shared<sdl::TextureRegion>(*game, 8, 0, 8, 8);
+    regions[TOP_LEFT_PART] = make_shared<sdl::TextureRegion>(*game, 16, 0, 8, 8);
+    regions[TOP_PART] = make_shared<sdl::TextureRegion>(*game, 24, 0, 8, 8);
+
+    regions[RIGHT_PART] = make_shared<sdl::TextureRegion>(*game, 0, 8, 8, 8);
+    regions[LEFT_PART] = make_shared<sdl::TextureRegion>(*game, 8, 8, 8, 8);
+    regions[HORIZONTAL_PART] = make_shared<sdl::TextureRegion>(*game, 16, 8, 8, 8);
+    regions[FOOD] = make_shared<sdl::TextureRegion>(*game, 24, 8, 8, 8);
+
+    regions[BOTTOM_RIGHT_PART] = make_shared<sdl::TextureRegion>(*game, 0, 16, 8, 8);
+    regions[BOTTOM_LEFT_PART] = make_shared<sdl::TextureRegion>(*game, 8, 16, 8, 8);
+    regions[BOTTOM_PART] = make_shared<sdl::TextureRegion>(*game, 16, 16, 8, 8);
 }
 
 void Application::setup() {

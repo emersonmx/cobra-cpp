@@ -11,9 +11,14 @@ class GameState : public BaseState {
         virtual ~GameState() {}
 
     protected:
+        virtual void enter();
+        virtual void exit();
+
         virtual void handleInput();
         virtual void processLogic();
         virtual void draw();
+
+        int index;
 };
 
 } /* namespace cobra */
