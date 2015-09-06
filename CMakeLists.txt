@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION 2.6)
 project(cobra)
 
 include(FindPkgConfig)
-set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/gmx/cmake/Modules/")
+set(CMAKE_MODULE_PATH ${CMAKE_MODULE_PATH} "${CMAKE_SOURCE_DIR}/cmake/Modules/")
 
 set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} -std=c++11")
 if (CMAKE_COMPILER_IS_GNUCC)
@@ -15,7 +15,7 @@ endif (CMAKE_COMPILER_IS_GNUCXX)
 
 include_directories(${PROJECT_SOURCE_DIR}
     ${PROJECT_SOURCE_DIR}/gmx/
-    ${PROJECT_SOURCE_DIR}/gmx/examples/
+    ${PROJECT_SOURCE_DIR}/lib/
 )
 
 find_package(SDL2 REQUIRED)
@@ -30,9 +30,9 @@ add_executable(${PROJECT_NAME}
     cobra/application.cpp
     cobra/game.cpp
     cobra/cobra.cpp
-    gmx/gmx/application.cpp
-    gmx/gmx/state_application.cpp
-    gmx/examples/sdlutils/sdl.cpp
+    gmx/application.cpp
+    gmx/state_application.cpp
+    lib/sdlutils/sdl.cpp
 )
 
 target_link_libraries(${PROJECT_NAME}
