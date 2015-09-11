@@ -41,6 +41,7 @@ add_executable(${PROJECT_NAME}
     cobra/application.cpp
     cobra/game.cpp
     cobra/cobra.cpp
+    cobra/main.cpp
     gmx/application.cpp
     gmx/state_application.cpp
 )
