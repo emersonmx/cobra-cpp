@@ -1,0 +1,7 @@
+#ifndef COBRA_CONFIG_H
+#define COBRA_CONFIG_H 
+
+#define COBRA_VERSION_MAJOR @cobra_VERSION_MAJOR@
+#define COBRA_VERSION_MINOR @cobra_VERSION_MINOR@
+
+#endif /* COBRA_CONFIG_H */
