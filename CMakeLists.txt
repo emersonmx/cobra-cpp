@@ -18,17 +18,19 @@ if (CMAKE_COMPILER_IS_GNUCXX)
 endif ()
 
 # Includes and libraries settings
+set(CMAKE_MODULE_PATH "${CMAKE_SOURCE_DIR}/cmake_modules" ${CMAKE_MODULE_PATH}) 
+
 include(FindPkgConfig)
 
 find_package(SFML 2 REQUIRED system window graphics) 
 if (SFML_FOUND)
-    set(EXTRA_INCLUDE_DIRS ${EXTRA_INCLUDE_DIRS} ${SFML_INCLUDE_DIR})
+    set(EXTRA_INCLUDES ${EXTRA_INCLUDES} ${SFML_INCLUDE_DIR})
     set(EXTRA_LIBS ${EXTRA_LIBS} ${SFML_LIBRARIES})
 endif ()
 
 # Executable settings
 include_directories(${PROJECT_SOURCE_DIR}
-    ${EXTRA_INCLUDE_DIRS}
+    ${EXTRA_INCLUDES}
 ) 
 
 add_executable(${PROJECT_NAME}
