@@ -1,52 +1,35 @@
 #ifndef COBRA_APPLICATION_HPP
 #define COBRA_APPLICATION_HPP
 
-#include <memory>
-#include <string>
-
-#include "gmx/application.hpp"
+#include <SFML/Window.hpp>
+#include <SFML/Graphics.hpp>
 
 namespace cobra {
 
-enum {
-    VERTICAL_PART, HORIZONTAL_PART,
-    LEFT_PART, RIGHT_PART, TOP_PART, BOTTOM_PART,
-    TOP_RIGHT_PART, TOP_LEFT_PART, BOTTOM_RIGHT_PART, BOTTOM_LEFT_PART,
-    FOOD,
-
-
-    // Enum com tamanho dinâmico. Contanto que a linha abaixo seja a última.
-    REGION_SIZE
-};
-
-class Application : public gmx::StateApplication {
+class Application {
     public:
-        Application() {}
-        virtual ~Application() {}
+        int getErrorCode() { return errorCode; }
+
+        void exit();
+        void exit(int errorCode);
+        int run();
 
     protected:
-        virtual void create();
-        virtual void update();
-        virtual void dispose();
+        void create();
+        void dispose();
+
+        void render();
+        void processInput();
+        void update();
+        void draw();
+
+        sf::RenderWindow window;
+        sf::Event event;
 
     private:
-        // attributes
+        int errorCode = 0;
+        bool running = true;
 };
 
-class BaseState : public gmx::DefaultState {
-    public:
-        BaseState(Application& app) : app(app) {}
-        virtual ~BaseState() {}
-
-        virtual void update();
-
-    protected:
-        virtual void handleInput() {}
-        virtual void processLogic() {}
-        virtual void draw() {}
-
-        Application& app;
-};
-
-} /* namespace cobra */
+} /* namespace cobra */ 
 #endif /* COBRA_APPLICATION_HPP */
